@@ -16,7 +16,7 @@
 
 
 
-优化后使用Jmeter进行压测: 优化前QPS为800QPS，优化后QPS为1900QPS
+<b>优化后使用Jmeter进行压测: 优化前QPS为800QPS，优化后QPS为1900QPS</b>
 
 ## 项目流程
 
