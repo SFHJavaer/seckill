@@ -1,7 +1,7 @@
 # 高并发秒杀项目
 ##### 该项目是基于SpringBoot+Redis+RabbitMQ的高并发秒杀项目，对高并发场景进行了优化，保证线程安全前提下提高系统的并发量。
 
-技术栈: SpringBoot、RabbitMQ、Redis、Mybatis
+技术栈: SpringBoot、RabbitMQ、Redis、MybatisPlus
 
  ● 实现登陆系统和秒杀功能模块的分布式session和业务逻辑。
 
