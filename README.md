@@ -1,101 +1,178 @@
-# 高并发秒杀项目
-##### 该项目是基于SpringBoot+Redis+RabbitMQ的高并发秒杀项目，对高并发场景进行了优化，保证线程安全前提下提高系统的并发量。
+# 🚀 高并发秒杀系统
 
-技术栈: SpringBoot、RabbitMQ、Redis、MybatisPlus
+[![Java](https://img.shields.io/badge/Java-1.8+-orange.svg)](https://www.oracle.com/java/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.6.5-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![Redis](https://img.shields.io/badge/Redis-6.0+-red.svg)](https://redis.io/)
+[![RabbitMQ](https://img.shields.io/badge/RabbitMQ-3.8+-yellow.svg)](https://www.rabbitmq.com/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0+-blue.svg)](https://www.mysql.com/)
 
- ● 实现登陆系统和秒杀功能模块的分布式session和业务逻辑。
+这是一个基于 **Spring Boot + Redis + RabbitMQ** 的高并发秒杀系统，针对高并发场景进行了深度优化，在保证线程安全的前提下大幅提升系统并发处理能力。
 
- ● 使用页面缓存、对象缓存、页面静态化对系统进行优化。
+## 📊 性能提升
 
- ● 通过内存标记和预减库存减少对Redis和数据库的访问。
+**JMeter压测结果：**
+- 优化前QPS：800
+- 优化后QPS：1900
+- **性能提升：137.5%**
 
- ● 使用RabbitMQ对订单的请求进行入队，实现异步下单。
+## ✨ 核心特性
 
- ● 对接口地址进行隐藏，同时利用图片验证码和秒杀请求频率对接口进行限流。
+### 🔐 安全保障
+- **分布式Session**：基于Redis实现用户会话共享
+- **密码安全**：双重MD5加密保护用户密码
+- **接口隐藏**：动态生成秒杀接口地址
+- **验证码防护**：算术验证码防止恶意攻击
+- **频率限制**：接口防刷机制保护系统稳定
 
+### ⚡ 性能优化
+- **页面缓存**：减少数据库查询频率
+- **对象缓存**：热点数据缓存到Redis
+- **页面静态化**：前后端分离提升响应速度
+- **预减库存**：Redis预减减少数据库压力
+- **内存标记**：减少Redis访问次数
+- **异步下单**：RabbitMQ消息队列解耦业务
 
+### 🏗️ 系统架构
+- **微服务设计**：模块化开发，职责分离
+- **消息队列**：异步处理提升并发能力
+- **缓存策略**：多级缓存优化性能
+- **数据库优化**：连接池和索引优化
 
-<b>优化后使用Jmeter进行压测: 优化前QPS为800QPS，优化后QPS为1900QPS</b>
+## 🛠️ 技术栈
 
-## 项目流程
+| 技术 | 版本 | 说明 |
+|------|------|------|
+| Spring Boot | 2.6.5 | 企业级开发框架 |
+| MySQL | 8.0+ | 关系型数据库 |
+| Redis | 6.0+ | 高性能缓存数据库 |
+| RabbitMQ | 3.8+ | 消息队列中间件 |
+| MyBatis Plus | 3.5.1 | 数据访问层框架 |
+| Thymeleaf | - | 服务端模板引擎 |
+| Bootstrap | - | 前端UI框架 |
 
-1. 项目框架搭建
-   1. SpringBoot环境搭建
-   2. 集成Thymeleaf,RespBean
-   3. MyBatis
-2. 分布式会话
-   1. 用户登录
-      1. 设计数据库
-      2. 明文密码二次MD5加密
-      3. 参数校验+全局异常处理
-   2. 共享Session
-      1. SpringSession
-      2. Redis
-3. 功能开发
-   1. 商品列表
-   2. 商品详情
-   3. 秒杀
-   4. 订单详情
-4. 系统压测
-   1. JMeter
-   2. 自定义变量模拟多用户
-   3. JMeter命令行的使用
-   4. 正式压测
-      1. 商品列表
-      2. 秒杀
-5. 页面优化
-   1. 页面缓存+URL缓存+对象缓存
-   2. 页面静态化，前后端分离
-   3. 静态资源优化
-   4. CDN优化
-6. 接口优化
-   1. Redis预减库存减少数据库的访问
-   2. 内存标记减少Redis的访问
-   3. RabbitMQ异步下单
-      1. SpringBoot整合RabbitMQ
-      2. 交换机
-7. 安全优化
-   1. 秒杀接口地址隐藏
-   2. 算术验证码
-   3. 接口防刷
-8. 主流的秒杀方案
+## 📋 系统功能
 
-## 软件架构
+### 👤 用户模块
+- 用户注册与登录
+- 分布式会话管理
+- 用户信息管理
 
-|                         技术                          | 版本  |                            说明                            |
-| :---------------------------------------------------: | :---: | :--------------------------------------------------------: |
-|                      Spring Boot                      | 2.6.4 |                                                            |
-|                         MySQL                         |   8   |                                                            |
-| [MyBatis Plus](https://github.com/baomidou/generator) | 3.5.1 |                                                            |
-|                       Swagger2                        | 2.9.2 |        Swagger-models2.9.2版本报错，使用的是1.5.22         |
-|         [Kinfe4j](https://doc.xiaominfo.com)          | 2.0.9 | 感觉比Swagger UI漂亮的一个工具，访问地址是ip:端口/doc.html |
-|                   Spring Boot Redis                   |       |                                                            |
+### 📦 商品模块
+- 商品列表展示
+- 商品详情查看
+- 秒杀商品管理
 
+### ⚡ 秒杀模块
+- 秒杀活动管理
+- 库存实时监控
+- 秒杀结果查询
 
+### 📋 订单模块
+- 订单生成与管理
+- 订单详情查看
+- 订单状态跟踪
 
-## 使用说明
+## 🚀 快速开始
 
-登录页面：http://localhost:8080/login/toLogin
+### 环境要求
+- JDK 1.8+
+- MySQL 8.0+
+- Redis 6.0+
+- RabbitMQ 3.8+
 
-接口文档页面：http://localhost:8080/doc.html#/home
+### 项目启动
 
-代码生成器：https://gitee.com/guizhizhe/code-generator.git
+1. **克隆项目**
+   ```bash
+   git clone https://github.com/your-username/seckill.git
+   cd seckill
+   ```
 
-sqldoc：创建表语句和回滚压测数据
+2. **配置数据库**
+   - 创建数据库 `seckill`
+   - 执行 `sqldoc/创建t_user.sql` 创建表结构
 
-sftware：是从B站用户@登就等觉得 下载的一些视频中程序的安装包（我没有使用，我是用的是docker里面）
+3. **修改配置**
+   - 编辑 `src/main/resources/application.yml`
+   - 配置数据库连接信息
+   - 配置Redis连接信息
+   - 配置RabbitMQ连接信息
 
-document：是从B站用户@登就等觉得 下载的系统说明文档，如果根据视频看的话，可以看文档里面，里面的代码是根据视频进度编写的，但是不要复制，pdf会有问题建议手打。
+4. **启动服务**
+   ```bash
+   mvn clean package
+   java -jar target/seckill-0.0.1-SNAPSHOT.jar
+   ```
 
+5. **访问系统**
+   - 登录页面：http://localhost:99/login/toLogin
+   - 接口文档：http://localhost:99/doc.html
 
+## 📊 项目结构
 
+```
+src/main/java/com/
+├── config/          # 配置类
+├── controller/      # 控制器层
+├── service/         # 服务层
+├── mapper/          # 数据访问层
+├── pojo/            # 实体类
+├── vo/              # 视图对象
+├── util/            # 工具类
+├── validator/       # 验证器
+├── rabbitmq/        # 消息队列
+└── exception/       # 异常处理
+```
 
+## 🔧 核心优化
 
-## 注意事项
+### 缓存优化
+```java
+// Redis预减库存
+redisTemplate.opsForValue().decrement("seckill:goods:" + goodsId);
+```
 
-1. 代码运行时一定要用localhost，原因可以看下CookieUtil类
-2. 代码生成时没有加去掉表头，导致代码和视频中不一样，命名也有的不一样，
+### 消息队列
+```java
+// 异步处理秒杀请求
+mqSender.sendSeckillMessage(JsonUtil.object2JsonStr(seckillMessage));
+```
 
+### 安全防护
+```java
+// 动态生成秒杀地址
+String md5 = MD5Util.md5(UUIDUtil.uuid() + "123456");
+redisTemplate.opsForValue().set("seckill:path:" + user.getId() + ":" + goodsId, md5, 60, TimeUnit.SECONDS);
+```
 
+## 📈 性能监控
 
+系统内置性能监控指标：
+- QPS（每秒查询率）
+- 响应时间
+- 缓存命中率
+- 消息队列积压情况
 
+## 🤝 贡献指南
+
+欢迎提交 Issue 和 Pull Request 来改进项目！
+
+1. Fork 本仓库
+2. 创建特性分支：`git checkout -b feature/AmazingFeature`
+3. 提交更改：`git commit -m 'Add some AmazingFeature'`
+4. 推送到分支：`git push origin feature/AmazingFeature`
+5. 提交 Pull Request
+
+## 📄 许可证
+
+本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
+
+## 🙋‍♂️ 联系方式
+
+如有问题或建议，请通过以下方式联系：
+- 提交 [GitHub Issue](https://github.com/your-username/seckill/issues)
+- 发送邮件至：your-email@example.com
+
+---
+
+⭐ 如果这个项目对你有帮助，请给它一个 star！
